@@ -1,4 +1,4 @@
-import { AppWrap } from "./App.styled";
+import { AppHeader, AppMain, AppWrap } from "./App.styled";
 import { SignIn } from "./components/SignIn";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,8 +10,12 @@ export const App = () => {
 
   return (
     <AppWrap>
-      <header>{auth.currentUser && <SignOut />}</header>
-      <section>{user ? <ChatView /> : <SignIn />}</section>
+      <AppHeader>{auth.currentUser ? <SignOut /> : <SignIn />}</AppHeader>
+      {user && (
+        <AppMain>
+          <ChatView />
+        </AppMain>
+      )}
     </AppWrap>
   );
 };

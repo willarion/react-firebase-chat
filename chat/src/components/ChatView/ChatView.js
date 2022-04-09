@@ -1,43 +1,41 @@
-import { Message } from "../Message";
-import { auth, db } from "../../firebase";
+import { InputMessage } from "../InputMessage";
+import { db } from "../../firebase";
 import { useEffect, useRef, useState } from "react";
+import { Message } from "../Message";
+import { ChatViewMessages, ChatViewWrap } from "./ChatView.styled";
 
 export const ChatView = () => {
   const scroll = useRef();
   const [messages, setMessages] = useState([]);
 
+  const handleScroll = () =>
+    scroll.current.scrollIntoView({ behavior: "smooth" });
+
   useEffect(() => {
     db.collection("messages")
-      .orderBy("createdAt")
-      .limit(20)
+      .orderBy("timestamp")
       .onSnapshot((snapshot) => {
-        console.log(123);
-        setMessages(snapshot.docs.map((doc) => doc.data()));
+        setMessages(
+          snapshot.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id };
+          })
+        );
       });
   }, []);
 
-  console.log(messages);
+  useEffect(() => {
+    handleScroll();
+  }, [messages]);
 
   return (
-    <div>
-      123
-      <div className="msgs">
-        {messages.map(({ id, text, photoURL, uid }) => (
-          <div>
-            <div
-              key={id}
-              className={`msg ${
-                uid === auth.currentUser.uid ? "sent" : "received"
-              }`}
-            >
-              <img src={photoURL} alt="" />
-              <p>{text}</p>
-            </div>
-          </div>
+    <ChatViewWrap>
+      <ChatViewMessages>
+        {messages.map(({ id, text, username, uid }) => (
+          <Message key={id} id={id} username={username} text={text} uid={uid} />
         ))}
-      </div>
-      <Message scroll={scroll} />
-      <div ref={scroll} />
-    </div>
+        <div ref={scroll} />
+      </ChatViewMessages>
+      <InputMessage />
+    </ChatViewWrap>
   );
 };
