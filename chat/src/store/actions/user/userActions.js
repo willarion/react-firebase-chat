@@ -6,7 +6,7 @@ import {
   USER_CALL_FETCH,
   USER_CALL_SUCCESS,
 } from "./userActionTypes";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
 export const signIn = (method) => {
   return async (dispatch) => {

@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { auth } from "../../firebase";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../store/actions/userActions";
+import { signIn } from "../../store/actions/user";
 
 export const SignIn = () => {
   const dispatch = useDispatch();

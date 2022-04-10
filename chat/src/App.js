@@ -8,7 +8,7 @@ import {
   USER_CALL_FAILURE,
   USER_CALL_FETCH,
   USER_CALL_SUCCESS,
-} from "./store/actions/userActionTypes";
+} from "./store/actions/user";
 import { Header } from "./components/Header";
 
 export const App = () => {
@@ -16,7 +16,7 @@ export const App = () => {
   const store = useSelector((state) => state);
   const { loggedIn, fetching } = useSelector((state) => state.user);
 
-  console.log(store);
+  console.log(store.messages);
 
   const [user, loading] = useAuthState(auth);
 
@@ -35,13 +35,18 @@ export const App = () => {
 
   return (
     <AppWrap>
-      <Header />
-      {loggedIn && !fetching && (
-        <AppMain>
-          <ChatView />
-        </AppMain>
+      {fetching ? (
+        <p>Fetching...</p>
+      ) : (
+        <>
+          <Header />
+          {loggedIn && !fetching && (
+            <AppMain>
+              <ChatView />
+            </AppMain>
+          )}
+        </>
       )}
-      {fetching && <p>Fetching...</p>}
     </AppWrap>
   );
 };

@@ -1,34 +1,31 @@
 import { InputMessage } from "../InputMessage";
-import { db } from "../../firebase";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Message } from "../Message";
 import { ChatViewMessages, ChatViewWrap } from "./ChatView.styled";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessages } from "../../store/actions/messages";
 
 export const ChatView = () => {
+  const dispatch = useDispatch();
+
   const scroll = useRef();
-  const [messages, setMessages] = useState([]);
+  const { messages, fetching } = useSelector((state) => state.messages);
 
   const handleScroll = () =>
     scroll.current.scrollIntoView({ behavior: "smooth" });
 
   useEffect(() => {
-    db.collection("messages")
-      .orderBy("timestamp")
-      .onSnapshot((snapshot) => {
-        const data = snapshot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id };
-        });
-        setMessages(data);
-      });
-  }, []);
-
-  useEffect(() => {
     handleScroll();
   }, [messages]);
+
+  useEffect(() => {
+    dispatch(getMessages());
+  }, [dispatch]);
 
   return (
     <ChatViewWrap>
       <ChatViewMessages>
+        {fetching && <p>Fetching...</p>}
         {messages.length > 0 &&
           messages.map(({ id, text, username, uid, timestamp }) => {
             return (

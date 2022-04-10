@@ -5,5 +5,8 @@ export const initialState = {
     fetching: null,
     userError: null,
   },
-  messages: [],
+  messages: {
+    messages: [],
+    fetching: null,
+  },
 };

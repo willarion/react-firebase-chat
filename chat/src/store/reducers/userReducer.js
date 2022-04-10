@@ -6,7 +6,7 @@ import {
   USER_CALL_FAILURE,
   USER_CALL_FETCH,
   USER_CALL_SUCCESS,
-} from "../actions/userActionTypes";
+} from "../actions/user";
 
 export const user = (state = initialState.user, action) => {
   switch (action.type) {
