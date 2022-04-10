@@ -9,6 +9,7 @@ export const ChatViewWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const ChatViewMessages = styled.div`

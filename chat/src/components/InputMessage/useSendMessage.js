@@ -56,5 +56,16 @@ export const useSendMessage = () => {
     };
   }, [sendMessage]);
 
-  return { sendMessage, handleChange, message, disableSend, inputRef };
+  const onEmojiClick = (event, emojiObject) => {
+    setMessage((prevState) => prevState + emojiObject.emoji);
+  };
+
+  return {
+    sendMessage,
+    handleChange,
+    message,
+    disableSend,
+    inputRef,
+    onEmojiClick,
+  };
 };
