@@ -5,8 +5,11 @@ export const MessageWrap = styled.div`
   flex-direction: column;
   gap: 5px;
   justify-content: space-between;
-  border-bottom: 1px solid lightgrey;
+  border: 1px solid lightgrey;
+  border-radius: 15px;
   padding: 10px;
+  width: 70%;
+  align-self: ${({ sent }) => (sent ? "flex-end" : "flex-start")};
 `;
 
 export const MessageStyled = styled.div`

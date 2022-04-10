@@ -16,6 +16,7 @@ export const ChatViewMessages = styled.div`
   overflow-y: scroll;
   height: 100%;
   display: flex;
+  gap: 5px;
   justify-content: center;
   align-content: center;
   flex-direction: column;

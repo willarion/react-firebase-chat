@@ -5,11 +5,13 @@ import {
   TimeDisplay,
 } from "./Message.styled";
 import { auth } from "../../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
 export const Message = ({ id, text, username, uid, timestamp }) => {
   const [timeAgo, setTimeAgo] = useState(timestamp ? "" : "just now");
+
+  const sent = useMemo(() => uid === auth.currentUser.uid, [uid]);
 
   useEffect(() => {
     if (timestamp) {
@@ -22,8 +24,8 @@ export const Message = ({ id, text, username, uid, timestamp }) => {
   }, [timeAgo, timestamp]);
 
   return (
-    <MessageWrap>
-      <MessageStyled key={id} sent={uid === auth.currentUser.uid}>
+    <MessageWrap sent={sent}>
+      <MessageStyled key={id} sent={sent}>
         <MessageText>{username ? username : "Anonymous"}:</MessageText>
         <MessageText>{text}</MessageText>
       </MessageStyled>
