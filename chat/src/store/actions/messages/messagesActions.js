@@ -11,6 +11,7 @@ export const getMessages = () => {
     return db
       .collection("messages")
       .orderBy("timestamp")
+      .limitToLast(30)
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
           return { ...doc.data(), id: doc.id };
