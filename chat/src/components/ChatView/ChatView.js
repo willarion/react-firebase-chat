@@ -3,7 +3,6 @@ import { db } from "../../firebase";
 import { useEffect, useRef, useState } from "react";
 import { Message } from "../Message";
 import { ChatViewMessages, ChatViewWrap } from "./ChatView.styled";
-import moment from "moment";
 
 export const ChatView = () => {
   const scroll = useRef();
@@ -16,19 +15,16 @@ export const ChatView = () => {
     db.collection("messages")
       .orderBy("timestamp")
       .onSnapshot((snapshot) => {
-        setMessages(
-          snapshot.docs.map((doc) => {
-            return { ...doc.data(), id: doc.id };
-          })
-        );
+        const data = snapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        });
+        setMessages(data);
       });
   }, []);
 
   useEffect(() => {
     handleScroll();
   }, [messages]);
-
-  // console.log(messages[messages.length - 1].timestamp.toDate());
 
   return (
     <ChatViewWrap>
@@ -42,7 +38,7 @@ export const ChatView = () => {
                 username={username}
                 text={text}
                 uid={uid}
-                timestamp={timestamp && moment(timestamp.toDate()).fromNow()}
+                timestamp={timestamp && timestamp.toDate()}
               />
             );
           })}

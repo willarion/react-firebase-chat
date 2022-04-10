@@ -8,9 +8,18 @@ export const SignIn = () => {
     auth.signInWithPopup(provider);
   };
 
+  const handleAnonymousLogin = () => {
+    auth.signInAnonymously().catch(console.log);
+  };
+
   return (
-    <Button type="button" onClick={handleGoogleLogin}>
-      Sign In with Google
-    </Button>
+    <>
+      <Button type="button" onClick={handleGoogleLogin}>
+        Sign In with Google
+      </Button>
+      <Button type="button" onClick={handleAnonymousLogin}>
+        Sign In Anonymously
+      </Button>
+    </>
   );
 };

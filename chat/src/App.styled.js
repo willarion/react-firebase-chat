@@ -18,5 +18,5 @@ export const AppHeader = styled.header`
 export const AppMain = styled.main`
   align-self: center;
   width: 50%;
-  box-shadow: 0 0 11px 5px rgba(136, 136, 136, 0.5);
+  box-shadow: -8px 9px 6px 0 rgb(136 136 136 / 50%);
 `;

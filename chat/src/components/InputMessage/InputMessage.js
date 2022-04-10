@@ -17,15 +17,17 @@ export const InputMessage = () => {
 
     const { uid, photoURL, displayName } = auth.currentUser;
 
-    await db.collection("messages").add({
-      text: message,
-      username: displayName,
-      photoURL,
-      uid,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-
-    setMessage("");
+    await db
+      .collection("messages")
+      .add({
+        text: message,
+        username: displayName ? displayName : "Anonymous",
+        photoURL,
+        uid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => setMessage(""))
+      .catch((e) => console.log(e));
   }
 
   return (
