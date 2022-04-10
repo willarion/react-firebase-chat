@@ -1,8 +1,11 @@
 import Button from "@mui/material/Button";
-import { auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { signOut } from "../../store/actions/userActions";
 
 export const SignOut = () => {
-  const handleSignOut = () => auth.signOut();
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => dispatch(signOut());
 
   return <Button onClick={handleSignOut}>Sign Out</Button>;
 };

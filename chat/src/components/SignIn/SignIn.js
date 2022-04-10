@@ -1,15 +1,27 @@
 import firebase from "firebase/compat/app";
 import { auth } from "../../firebase";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../store/actions/userActions";
 
 export const SignIn = () => {
+  const dispatch = useDispatch();
+
   const handleGoogleLogin = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    const method = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      return auth.signInWithPopup(provider);
+    };
+
+    dispatch(signIn(method));
   };
 
   const handleAnonymousLogin = () => {
-    auth.signInAnonymously().catch(console.log);
+    const method = () => {
+      return auth.signInAnonymously();
+    };
+
+    dispatch(signIn(method));
   };
 
   return (

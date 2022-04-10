@@ -9,12 +9,6 @@ export const AppWrap = styled.div`
   justify-content: center;
 `;
 
-export const AppHeader = styled.header`
-  position: absolute;
-  top: 0;
-  padding: 20px;
-`;
-
 export const AppMain = styled.main`
   align-self: center;
   width: 50%;
