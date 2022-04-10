@@ -10,6 +10,7 @@ import {
   USER_CALL_SUCCESS,
 } from "./store/actions/user";
 import { Header } from "./components/Header";
+import { Loader } from "./components/Loader";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export const App = () => {
   return (
     <AppWrap>
       {fetching ? (
-        <p>Fetching...</p>
+        <Loader />
       ) : (
         <>
           <Header />

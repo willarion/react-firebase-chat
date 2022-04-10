@@ -4,6 +4,7 @@ import { Message } from "../Message";
 import { ChatViewMessages, ChatViewWrap } from "./ChatView.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../store/actions/messages";
+import { Loader } from "../Loader";
 
 export const ChatView = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const ChatView = () => {
   return (
     <ChatViewWrap>
       <ChatViewMessages>
-        {fetching && <p>Fetching...</p>}
+        {fetching && <Loader />}
         {messages.length > 0 &&
           messages.map(({ id, text, username, uid, timestamp }) => {
             return (

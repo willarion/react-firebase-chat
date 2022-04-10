@@ -7,10 +7,13 @@ export const AppWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 40px;
+  box-sizing: border-box;
 `;
 
 export const AppMain = styled.main`
   align-self: center;
+  height: 100%;
   width: 50%;
   box-shadow: -8px 9px 6px 0 rgb(136 136 136 / 50%);
 `;

@@ -13,10 +13,11 @@ export const ChatViewWrap = styled.div`
 
 export const ChatViewMessages = styled.div`
   overflow-y: scroll;
-  max-height: 45vh;
   height: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  box-sizing: border-box;
+  padding-bottom: 5px;
 `;
