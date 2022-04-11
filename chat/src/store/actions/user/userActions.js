@@ -9,6 +9,52 @@ import {
 import { auth, db } from "../../../firebase";
 import { getRandomColor } from "../../../helpers";
 
+export const signUp = (userInput) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_CALL_FETCH });
+
+    auth
+      .createUserWithEmailAndPassword(userInput?.email, userInput?.password)
+      .then((userCredential) => {
+        const user = auth.currentUser;
+
+        user
+          .updateProfile({
+            displayName: userInput?.username,
+          })
+          .then(() => {
+            const randomColor = getRandomColor();
+
+            db.collection("userColors")
+              .doc(userCredential.user.uid)
+              .set({
+                color: randomColor,
+              })
+              .then(() => {
+                dispatch({
+                  type: USER_CALL_SUCCESS,
+                  user: {
+                    username: userCredential.user.displayName,
+                    color: randomColor,
+                  },
+                });
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            throw error;
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: USER_CALL_FAILURE,
+          payload: error,
+        });
+      });
+  };
+};
+
 export const signIn = (method) => {
   return async (dispatch) => {
     dispatch({ type: USER_CALL_FETCH });
