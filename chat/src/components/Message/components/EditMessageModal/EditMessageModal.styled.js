@@ -36,3 +36,9 @@ export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-around;
 `;
+
+export const EmojiButtonWrap = styled.div`
+  position: absolute;
+  right: 40px;
+  bottom: 44%;
+`;

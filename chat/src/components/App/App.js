@@ -5,7 +5,7 @@ import { ChatView } from "../ChatView";
 import { useSelector } from "react-redux";
 import { Header } from "../Header";
 import { Loader } from "../Loader";
-import { useUser } from "./useUser";
+import { useUser } from "./hooks";
 
 export const App = () => {
   const { loggedIn, fetching } = useSelector((state) => state.user);

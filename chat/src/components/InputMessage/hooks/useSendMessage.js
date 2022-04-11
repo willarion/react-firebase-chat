@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../../firebase";
 import firebase from "firebase/compat/app";
 
 export const useSendMessage = () => {
@@ -56,9 +56,9 @@ export const useSendMessage = () => {
     };
   }, [sendMessage]);
 
-  const onEmojiClick = (event, emojiObject) => {
+  const handleEmojiClick = useCallback((event, emojiObject) => {
     setMessage((prevState) => prevState + emojiObject.emoji);
-  };
+  }, []);
 
   return {
     sendMessage,
@@ -66,6 +66,6 @@ export const useSendMessage = () => {
     message,
     disableSend,
     inputRef,
-    onEmojiClick,
+    handleEmojiClick,
   };
 };

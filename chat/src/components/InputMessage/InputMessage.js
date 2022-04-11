@@ -1,13 +1,9 @@
-import { IconButton, TextField, Tooltip } from "@mui/material";
-import {
-  InputMessagesEmoji,
-  InputMessageStyledForm,
-} from "./InputMessage.styled";
-import { useSendMessage } from "./useSendMessage";
-import Picker from "emoji-picker-react";
-import { useState } from "react";
-import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import { TextField, Tooltip } from "@mui/material";
+import { InputMessageStyledForm } from "./InputMessage.styled";
+import { useSendMessage } from "./hooks";
 import { SendButton } from "../Message/Message.styled";
+import { useShowEmoji } from "../EmojiPicker/hooks";
+import { EmojiPicker, EmojiPickerButton } from "../EmojiPicker";
 
 export const InputMessage = () => {
   const {
@@ -16,11 +12,10 @@ export const InputMessage = () => {
     message,
     disableSend,
     inputRef,
-    onEmojiClick,
+    handleEmojiClick,
   } = useSendMessage();
 
-  const [showEmoji, setShowEmoji] = useState(false);
-  const toggleShowEmoji = () => setShowEmoji(!showEmoji);
+  const { toggleShowEmoji, showEmoji } = useShowEmoji();
 
   return (
     <>
@@ -35,9 +30,7 @@ export const InputMessage = () => {
           multiline
           maxRows={3}
         />
-        <IconButton aria-label="emoji" onClick={toggleShowEmoji}>
-          <InsertEmoticonIcon />
-        </IconButton>
+        <EmojiPickerButton onToggle={toggleShowEmoji} />
         <Tooltip title={disableSend ? "" : "Or press Ctrl+Enter"}>
           <span>
             <SendButton type="submit" disabled={disableSend}>
@@ -46,9 +39,7 @@ export const InputMessage = () => {
           </span>
         </Tooltip>
       </InputMessageStyledForm>
-      <InputMessagesEmoji show={showEmoji}>
-        <Picker onEmojiClick={onEmojiClick} />
-      </InputMessagesEmoji>
+      <EmojiPicker show={showEmoji} onEmojiClick={handleEmojiClick} />
     </>
   );
 };

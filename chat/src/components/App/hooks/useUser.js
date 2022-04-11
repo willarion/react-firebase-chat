@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { getUserColor } from "../../helpers";
 import {
   SET_USER_COLOR,
   USER_CALL_FAILURE,
   USER_CALL_FETCH,
   USER_CALL_SUCCESS,
-} from "../../store/actions/user";
+} from "../../../store/actions/user";
 import { useDispatch } from "react-redux";
+import { getUserColor } from "../../../helpers";
 
 export const useUser = (user, loading) => {
   const dispatch = useDispatch();

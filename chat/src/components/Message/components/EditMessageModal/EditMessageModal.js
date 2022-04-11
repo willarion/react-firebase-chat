@@ -1,26 +1,26 @@
-import { Portal } from "../../../Portal";
 import {
+  EmojiButtonWrap,
   ModalContainer,
   ModalFooter,
   ModalHeader,
   ModalWrap,
 } from "./EditMessageModal.styled";
-import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { Button, Portal, TextField } from "@mui/material";
+import { useChangeMessage } from "./hooks/useChangeMessage";
 import { db } from "../../../../firebase";
+import { useShowEmoji } from "../../../EmojiPicker/hooks";
+import { EmojiPickerButton, EmojiPicker } from "../../../EmojiPicker";
 
 export const EditMessageModal = ({ id, initialMessage, toggleModal }) => {
-  const [editedMessage, setEditedMessage] = useState(initialMessage);
+  const { toggleShowEmoji, showEmoji } = useShowEmoji();
+  const { editedMessage, handleChange, handleEmojiClick } =
+    useChangeMessage(initialMessage);
 
-  const handleChange = (e) => {
-    setEditedMessage(e.target.value);
-  };
-
-  const handleEditMessage = (e) => {
+  const handleEditedMessageSubmit = (e) => {
     e.preventDefault();
-    const messageRef = db.collection("messages").doc(id);
 
-    return messageRef
+    db.collection("messages")
+      .doc(id)
       .update({
         text: editedMessage,
       })
@@ -40,24 +40,30 @@ export const EditMessageModal = ({ id, initialMessage, toggleModal }) => {
           <ModalHeader>
             <span>Please, enter new message</span>
           </ModalHeader>
-          <TextField
-            fullWidth={true}
-            placeholder="Message..."
-            type="text"
-            value={editedMessage}
-            onChange={handleChange}
-            multiline
-            maxRows={3}
-          />
+          <div>
+            <TextField
+              fullWidth={true}
+              placeholder="Message..."
+              type="text"
+              value={editedMessage}
+              onChange={handleChange}
+              multiline
+              maxRows={3}
+            />
+            <EmojiButtonWrap>
+              <EmojiPickerButton onToggle={toggleShowEmoji} />
+            </EmojiButtonWrap>
+          </div>
           <ModalFooter>
-            <Button type="submit" onClick={handleEditMessage}>
-              Ok
+            <Button type="submit" onClick={handleEditedMessageSubmit}>
+              Save
             </Button>
             <Button type="reset" onClick={toggleModal}>
               Cancel
             </Button>
           </ModalFooter>
         </ModalContainer>
+        <EmojiPicker show={showEmoji} onEmojiClick={handleEmojiClick} />
       </ModalWrap>
     </Portal>
   );

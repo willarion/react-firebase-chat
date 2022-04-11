@@ -6,15 +6,3 @@ export const InputMessageStyledForm = styled.form`
   padding: 2px;
   box-sizing: border-box;
 `;
-
-export const InputMessagesEmoji = styled.div`
-  display: ${({ show }) => (show ? "block" : "none")};
-  position: absolute;
-  z-index: 9999;
-  top: 5%;
-  width: 100%;
-
-  & aside.emoji-picker-react {
-    margin: auto;
-  }
-`;

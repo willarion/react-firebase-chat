@@ -6,23 +6,22 @@ import {
   TimeDisplay,
 } from "./Message.styled";
 import { auth } from "../../firebase";
-import { useMemo, useState } from "react";
-import { useTimestamp } from "./useTimestamp";
-import { useUserColor } from "./useUserColor";
+import { useMemo } from "react";
+import { useTimestamp } from "./hooks/useTimestamp";
+import { useUserColor } from "./hooks/useUserColor";
 import { EditMessageModal } from "./components/EditMessageModal";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tooltip } from "@mui/material";
+import { useToggleModal } from "./components/EditMessageModal/hooks";
 
 export const Message = ({ id, text, username, uid, timestamp }) => {
   const sent = useMemo(() => uid === auth.currentUser.uid, [uid]);
   const userColor = useUserColor(uid, sent);
   const timeAgo = useTimestamp(timestamp);
 
-  const [openModal, setOpenModal] = useState(false);
+  const { toggleEditModal, openModal } = useToggleModal();
 
-  const toggleEditModal = () => {
-    setOpenModal(!openModal);
-  };
+  const handleTooltipClick = () => sent && toggleEditModal();
 
   return (
     <MessageWrap sent={sent}>
@@ -31,7 +30,7 @@ export const Message = ({ id, text, username, uid, timestamp }) => {
           {username ? username : "Anonymous"}:
         </MessageUserName>
         <Tooltip
-          onClick={toggleEditModal}
+          onClick={handleTooltipClick}
           title={
             sent ? (
               <span>
