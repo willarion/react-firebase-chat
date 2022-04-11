@@ -16,4 +16,10 @@ export const AppMain = styled.main`
   max-width: 450px;
   width: 50%;
   box-shadow: -8px 9px 6px 0 rgb(136 136 136 / 50%);
+  border: 0.1px solid lightgrey;
+  border-radius: 5px;
+
+  @media screen and (max-width: 600px) {
+    width: 85%;
+  }
 `;

@@ -21,5 +21,5 @@ export const ChatViewMessages = styled.div`
   align-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  padding-bottom: 5px;
+  padding: 0 5px 5px 0;
 `;

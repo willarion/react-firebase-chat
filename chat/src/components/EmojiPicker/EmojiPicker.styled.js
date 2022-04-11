@@ -9,6 +9,12 @@ export const EmojiPickerStyled = styled.div`
 
   & aside.emoji-picker-react {
     margin: auto;
+    max-width: 320px;
+    width: unset;
     max-height: 40vh;
+
+    @media screen and (max-width: 360px) {
+      width: 280px;
+    }
   }
 `;
