@@ -22,14 +22,13 @@ export const useSendMessage = () => {
 
       setMessage("");
 
-      const { uid, photoURL, displayName } = auth.currentUser;
+      const { uid, displayName } = auth.currentUser;
 
       await db
         .collection("messages")
         .add({
-          text: message,
+          message,
           username: displayName ? displayName : "Anonymous",
-          photoURL,
           uid,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })

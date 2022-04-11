@@ -28,13 +28,13 @@ export const ChatView = () => {
       <ChatViewMessages>
         {fetching && <Loader />}
         {messages.length > 0 &&
-          messages.map(({ id, text, username, uid, timestamp }) => {
+          messages.map(({ id, message, username, uid, timestamp }) => {
             return (
               <Message
                 key={id}
                 id={id}
                 username={username}
-                text={text}
+                text={message}
                 uid={uid}
                 timestamp={timestamp && timestamp.toDate()}
               />
