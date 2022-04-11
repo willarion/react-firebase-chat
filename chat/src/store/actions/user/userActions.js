@@ -6,7 +6,8 @@ import {
   USER_CALL_FETCH,
   USER_CALL_SUCCESS,
 } from "./userActionTypes";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
+import { getRandomColor } from "../../../helpers";
 
 export const signIn = (method) => {
   return async (dispatch) => {
@@ -14,10 +15,17 @@ export const signIn = (method) => {
 
     method()
       .then((data) => {
+        const randomColor = getRandomColor();
+
+        db.collection("userColors").doc(data.user.uid).set({
+          color: randomColor,
+        });
+
         dispatch({
           type: USER_CALL_SUCCESS,
           user: {
             username: data.user.displayName,
+            color: randomColor,
           },
         });
       })

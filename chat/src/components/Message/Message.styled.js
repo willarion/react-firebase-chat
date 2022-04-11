@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "@mui/material/Button";
 
 export const MessageWrap = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ export const MessageWrap = styled.div`
 `;
 
 export const MessageStyled = styled.div`
-  color: ${(props) => (props.sent ? "blue" : "green")};
+  color: grey;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -25,8 +26,19 @@ export const MessageText = styled.span`
   word-break: break-word;
 `;
 
+export const MessageUserName = styled(MessageText)`
+  color: ${({ color }) => (color ? color : "inherit")};
+  max-width: 55%;
+  display: block;
+  word-break: break-word;
+`;
+
 export const TimeDisplay = styled(MessageText)`
   font-size: 0.75rem;
   align-self: flex-end;
   color: #1f4eb2a5;
+`;
+
+export const SendButton = styled(Button)`
+  height: 100%;
 `;

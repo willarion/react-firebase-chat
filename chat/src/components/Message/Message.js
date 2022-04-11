@@ -1,32 +1,28 @@
 import {
   MessageStyled,
   MessageText,
+  MessageUserName,
   MessageWrap,
   TimeDisplay,
 } from "./Message.styled";
 import { auth } from "../../firebase";
-import { useEffect, useMemo, useState } from "react";
-import moment from "moment";
+import { useMemo } from "react";
+import { useTimestamp } from "./useTimestamp";
+import { useUserColor } from "./useUserColor";
 
 export const Message = ({ id, text, username, uid, timestamp }) => {
-  const [timeAgo, setTimeAgo] = useState(timestamp ? "" : "just now");
-
   const sent = useMemo(() => uid === auth.currentUser.uid, [uid]);
+  const userColor = useUserColor(uid, sent);
+  const timeAgo = useTimestamp(timestamp);
 
-  useEffect(() => {
-    if (timestamp) {
-      const intervalTime = setInterval(() => {
-        setTimeAgo(moment(timestamp).fromNow());
-      }, 1000);
-
-      return () => clearInterval(intervalTime);
-    }
-  }, [timeAgo, timestamp]);
+  const handleEdit = () => {};
 
   return (
-    <MessageWrap sent={sent}>
-      <MessageStyled key={id} sent={sent}>
-        <MessageText>{username ? username : "Anonymous"}:</MessageText>
+    <MessageWrap onClick={handleEdit} sent={sent}>
+      <MessageStyled>
+        <MessageUserName color={userColor}>
+          {username ? username : "Anonymous"}:
+        </MessageUserName>
         <MessageText>{text}</MessageText>
       </MessageStyled>
       <TimeDisplay>{timeAgo}</TimeDisplay>

@@ -13,6 +13,7 @@ export const AppWrap = styled.div`
 
 export const AppMain = styled.main`
   align-self: center;
+  max-width: 450px;
   width: 50%;
   box-shadow: -8px 9px 6px 0 rgb(136 136 136 / 50%);
 `;

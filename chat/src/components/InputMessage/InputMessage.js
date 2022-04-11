@@ -1,5 +1,4 @@
 import { IconButton, TextField, Tooltip } from "@mui/material";
-import Button from "@mui/material/Button";
 import {
   InputMessagesEmoji,
   InputMessageStyledForm,
@@ -8,6 +7,7 @@ import { useSendMessage } from "./useSendMessage";
 import Picker from "emoji-picker-react";
 import { useState } from "react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import { SendButton } from "../Message/Message.styled";
 
 export const InputMessage = () => {
   const {
@@ -38,10 +38,12 @@ export const InputMessage = () => {
         <IconButton aria-label="emoji" onClick={toggleShowEmoji}>
           <InsertEmoticonIcon />
         </IconButton>
-        <Tooltip title="Or press Ctrl+Enter">
-          <Button type="submit" disabled={disableSend}>
-            Send
-          </Button>
+        <Tooltip title={disableSend ? "" : "Or press Ctrl+Enter"}>
+          <span>
+            <SendButton type="submit" disabled={disableSend}>
+              Send
+            </SendButton>
+          </span>
         </Tooltip>
       </InputMessageStyledForm>
       <InputMessagesEmoji show={showEmoji}>
