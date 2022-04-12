@@ -1,4 +1,4 @@
-# Chat made with Firebase and [Create React App](https://github.com/facebook/create-react-app).
+# Chat made with Firebase and Create React App
 
 Firstly you need to install the app with  `npm install`.
 
